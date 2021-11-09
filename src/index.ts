@@ -8,6 +8,8 @@ import { Component, ComponentGroup, FieldMeta } from "./types";
 import { Story } from "./types/Story";
 import { Asset, AssetFolder } from "./types/Assets";
 import { SiteConfigurationComponent } from "./types/SiteConfigurationComponent";
+import { Space, Collaborator, User } from "./types/Space";
+import { WorkflowStage, WorkflowStateChange } from "./types/Workflow";
 
 /** api client for StoryBlok management api. */
 export class StoryBlokAPIClient extends APIClient 
@@ -87,6 +89,49 @@ export class StoryBlokAPIClient extends APIClient
                 return this.SpaceComponents;
             }
         }); 
+    }
+
+    /**
+     * Returns all workflow stages defined in the space.
+     */
+    public async GetWorkflowStages() : Promise<Array<WorkflowStage>>
+    {
+        return this.GET("workflow_stages")
+            .then((workflowStages : any & { workflow_stages: Array<WorkflowStage> }) => 
+            {
+                return workflowStages.workflow_stages || [];
+            })
+            .catch(() => []);
+    }
+
+    /**
+     * Returns a list of all workflow state changes of an story.
+     * @param storyId 
+     * @returns 
+     */
+    public async GetStoryWorkflowChanges(storyId: number) : Promise<Array<WorkflowStateChange>>
+    {
+        return this.GET("workflow_stage_changes", new URLSearchParams({ with_story: `${storyId}`}))
+            .then((storyWorkflowChanges : any & { workflow_stage_changes : Array<WorkflowStateChange> }) =>
+            {
+                return storyWorkflowChanges.workflow_stage_changes || [];
+            })
+            .catch(() => [])
+    }
+
+    /**
+     * Returns all users for the current space
+     * @returns 
+     */
+    public async GetAllUsers() : Promise<Array<User>> 
+    {
+        return this.GET("")
+            .then((response) => 
+            {
+                const space = response.space as Space;
+                return space ? space.collaborators.map(c => c.user) : [];
+            })
+            .catch(() => []);
     }
 
     /**
