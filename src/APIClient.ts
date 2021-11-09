@@ -8,8 +8,12 @@ export class APIClient
 {
     protected instance: AxiosInstance;
 
-    public constructor(baseUrl: string, authToken: string, maxRequestsPerSecond: number = 0)
+    private maxRetry: number;
+
+    public constructor(baseUrl: string, authToken: string, maxRequestsPerSecond: number = 0, maxRetry: number = 3)
     {
+        this.maxRetry = maxRetry;
+
         // default AxiosRequestConfig
         const clientConfig: AxiosRequestConfig = {
             baseURL: baseUrl,
@@ -82,10 +86,11 @@ export class APIClient
                 { 
                     console.error(`${error.response.status}: ${error.response.statusText}\nDetails: ${JSON.stringify(error.response.data)}\nRequest: ${JSON.stringify({ ...config })}`);
 
-                    if(error.response.status == 429 && ((retry || 1) < 3)) 
+                    const _retry = retry || 1;
+                    if(error.response.status == 429 && (_retry < this.maxRetry)) 
                     {
                         // try again after a short delay
-                        return await new Promise((resolve, _) => { setTimeout(() => { resolve(this.SEND(url, method, config, retry ? retry + 1 : 1)); }, 2000); });
+                        return await new Promise((resolve, _) => { setTimeout(() => { resolve(this.SEND(url, method, config, _retry + 1)); }, _retry * 1000); });
                     }
                     else
                     {
