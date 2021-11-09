@@ -17,7 +17,7 @@ export class StoryBlokAPIClient extends APIClient
     private SpaceComponentGroups : Array<ComponentGroup>;
     private SpaceComponents : Array<Component>;
 
-    constructor(accessToken?: string, space?: string)
+    constructor(accessToken: string, space: string, maxRetry: number = 3)
     {        
         if(!space) { throw new Error("STORYBLOK_SPACE not set."); }
         if(!accessToken) { throw new Error("STORYBLOK_ACCESSTOKEN not set."); }
@@ -25,7 +25,7 @@ export class StoryBlokAPIClient extends APIClient
         const BaseUrl = `https://mapi.storyblok.com/v1/spaces/${space}/`!;
         const AuthToken = accessToken;
         
-        super(BaseUrl, AuthToken, 5);
+        super(BaseUrl, AuthToken, 5, maxRetry);
 
         this.IsInitialised = false;
         this.SpaceComponentGroups = new Array<ComponentGroup>();
