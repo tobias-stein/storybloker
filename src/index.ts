@@ -614,7 +614,7 @@ export class StoryBlokAPIClient extends APIClient
     }
 
     public async GetAllSpaceRoles() : Promise<Array<SpaceRole>> { return this.GET('space_roles').then(data => data.space_roles); }
-    public async CreateSpaceRoles(role: SpaceRole) : Promise<void> { return this.POST('space_roles', { space_roles: role }).then(data => data.space_roles); }
-    public async UpdateSpaceRoles(role: SpaceRole) : Promise<SpaceRole> { return this.PUT(`space_roles/${role.id}`, { space_roles: role }).then(data => data.space_roles); }
-    public async DeleteSpaceRoles(role: SpaceRole) : Promise<void> { return this.DELETE(`space_roles/${role.id}`); }
+    public async CreateSpaceRole(role: SpaceRole) : Promise<void> { return this.POST('space_roles', { space_role: role }).then(data => data.space_role); }
+    public async UpdateSpaceRole(role: SpaceRole) : Promise<SpaceRole> { return this.PUT(`space_roles/${role.id}`, { space_role: role }).then(data => data.space_role); }
+    public async DeleteSpaceRole(role: SpaceRole) : Promise<void> { return this.DELETE(`space_roles/${role.id}`); }
 }
