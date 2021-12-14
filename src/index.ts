@@ -8,7 +8,7 @@ import { Component, ComponentGroup, FieldMeta } from "./types";
 import { Story } from "./types/Story";
 import { Asset, AssetFolder } from "./types/Assets";
 import { SiteConfigurationComponent } from "./types/SiteConfigurationComponent";
-import { Space, Collaborator, User } from "./types/Space";
+import { Space, Collaborator, User, SpaceRole } from "./types/Space";
 import { WorkflowStage, WorkflowStateChange } from "./types/Workflow";
 
 /** api client for StoryBlok management api. */
@@ -612,4 +612,9 @@ export class StoryBlokAPIClient extends APIClient
 
         return References;
     }
+
+    public async GetAllSpaceRoles() : Promise<Array<SpaceRole>> { return this.GET('space_roles').then(data => data.space_roles); }
+    public async CreateSpaceRoles(role: SpaceRole) : Promise<void> { return this.POST('space_roles', { space_roles: role }).then(data => data.space_roles); }
+    public async UpdateSpaceRoles(role: SpaceRole) : Promise<SpaceRole> { return this.PUT(`space_roles/${role.id}`, { space_roles: role }).then(data => data.space_roles); }
+    public async DeleteSpaceRoles(role: SpaceRole) : Promise<void> { return this.DELETE(`space_roles/${role.id}`); }
 }
