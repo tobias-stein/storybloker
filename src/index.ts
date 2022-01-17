@@ -415,7 +415,7 @@ export class StoryBlokAPIClient extends APIClient
 
             // fetch all stories for this page
             const ThisPage = await this.GET(`assets`, params)
-                .then(page => { return page.assets as Array<Asset>; })
+                .then(page => { return page.assets as Array<Asset>; }) || [];
                 
             // accumulate result
             Assets = Assets.concat(ThisPage);
