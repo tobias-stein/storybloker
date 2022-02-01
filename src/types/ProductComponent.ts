@@ -25,4 +25,5 @@ export interface ProductComponent extends StoryBlokComponent {
     items:              ProductSkuComponent[] | undefined;
     inserts:            any;
     sku_options:        any;
+    deleted:            boolean;
 }

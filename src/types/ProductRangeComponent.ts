@@ -17,5 +17,7 @@ export interface ProductRangeComponent extends StoryBlokComponent {
     position:           number;
     importance:         number;
     last_update:        string;
+    deleted:            boolean;
+
 }
 

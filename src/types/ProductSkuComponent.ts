@@ -1,5 +1,4 @@
-import { StoryBlokComponent } from ".";
-
+import { StoryBlokComponent, ImageLink } from ".";
 export interface ProductSkuComponent extends StoryBlokComponent {
 
     name:            string;
@@ -8,7 +7,7 @@ export interface ProductSkuComponent extends StoryBlokComponent {
     sellable:        boolean;
     price:           number;
     full_price:      number;
-    images:          string[];
+    images:          ImageLink[];
     expired:         boolean;
     replacement_sku: string;
     id:              string;

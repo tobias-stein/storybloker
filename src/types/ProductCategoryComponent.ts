@@ -11,6 +11,7 @@ export interface ProductCategoryComponent extends StoryBlokComponent
     filters:    ProductCategoryFilterComponent[];
     content:    any;
     icon_url:   string;
+    deleted:    boolean;
 }
 
 export interface ProductCategoryFilterComponent extends StoryBlokComponent 
