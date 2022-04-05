@@ -26,6 +26,13 @@ export function StoryToIndex(Target: Story<any & StoryBlokComponent>, KnownCompo
             if(IncludeFields && !IncludeFields.includes(FieldName)) { continue; }
 
             const FieldMeta = Component.schema[FieldName];
+            const FieldValue = Target.content[FieldName];
+            
+            if(FieldValue === undefined || FieldValue === null)
+            {
+                IndexDocument = Object.assign(IndexDocument, { [FieldName]: null });
+                continue;
+            }
 
             switch(FieldMeta.type)
             {

@@ -11,7 +11,7 @@ export interface CantoAssetComponent extends StoryBlokComponent {
   properties:               CantoAssetPropertyComponent[];
   last_asset_modified:      string;
   last_assetmeta_modified:  string;
-
+  last_folder_hash:         string;
 }
 
 export interface CantoAssetPropertyComponent extends StoryBlokComponent {
