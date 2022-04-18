@@ -352,6 +352,24 @@ export class StoryBlokAPIClient extends APIClient
     public async UnpublishStory(StoryId : Number) : Promise<void> { return this.GET(`stories/${StoryId}/unpublish`); }
 
     /**
+     * Move story to new parent folder.
+     * @param storyId 
+     * @param parentId 
+     * @returns 
+     */
+    public async MoveStory(storyId: number, parentId: number) : Promise<Story | null>
+    {
+        return this
+            .PUT(`stories/${storyId}/move`, { to_folder: parentId })
+            .then(result => this.GetStoryById(storyId))
+            .catch(err => 
+            {
+                console.error(err);
+                return null;
+            });
+    }
+
+    /**
      * Returns a list of all available asset folders.
      * @returns 
      */
