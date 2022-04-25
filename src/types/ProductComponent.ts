@@ -16,7 +16,8 @@ export interface ProductComponent extends StoryBlokComponent {
     legacy_description: string;
     images_pim:         any[];
     category:           string;
-    position:           number;
+    position:           string;
+    position_pim:       number;
     importance:         number;
     product_range:      string;
     attributes:         any;
