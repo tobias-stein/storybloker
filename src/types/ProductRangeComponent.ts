@@ -14,7 +14,8 @@ export interface ProductRangeComponent extends StoryBlokComponent {
     legacy_description: string;
     images_pim:         any[];
     category:           string;
-    position:           number;
+    position:           string;
+    position_pim:       number;
     importance:         number;
     last_update:        string;
     deleted:            boolean;
