@@ -19,7 +19,7 @@ export interface Asset
     focus:               null;
     ext_id:              string | null;
     expire_at:           string | null;
-    source:              null;
+    source:              string | null;
     internal_tags_list:  any[];
 }
 

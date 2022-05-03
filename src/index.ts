@@ -501,12 +501,11 @@ export class StoryBlokAPIClient extends APIClient
         AssetDimensions: string,
         AssetContentLength: string, 
         AssetContentType: string,
-        AssetId?: number | undefined) : Promise<Asset>
+        source?: string | undefined) : Promise<Asset>
     {
         // first request signed request to upload content
         return await this.POST("assets", 
             { 
-                id: AssetId, 
                 filename: AssetName, 
                 title: BeautifyFilename(AssetCaption),
                 size: AssetDimensions,
@@ -515,7 +514,8 @@ export class StoryBlokAPIClient extends APIClient
                 alt: AssetDescription, 
                 asset_folder_id: AssetFolderId,
                 content_type: AssetContentType,
-                content_length: AssetContentLength
+                content_length: AssetContentLength,
+                source: source
             })
             // upload content
             .then(SingedRequest =>

@@ -6,7 +6,7 @@
     "publishConfig": {
         "access": "public"
     },
-    "version": "1.0.26",
+    "version": "1.0.28",
     "description": "Generic storyblok client to access management api.",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
