@@ -1,6 +1,6 @@
 import { StoryBlokComponent } from ".";
 
-export interface ProductCategoryComponent extends StoryBlokComponent<""> 
+export interface ProductCategoryComponent extends StoryBlokComponent<"product-category"> 
 {
     id:             string;
     legacy_ids:     string;
@@ -14,7 +14,7 @@ export interface ProductCategoryComponent extends StoryBlokComponent<"">
     deleted:        boolean;
 }
 
-export interface ProductCategoryFilterComponent extends StoryBlokComponent<""> 
+export interface ProductCategoryFilterComponent extends StoryBlokComponent<"product-category-filter"> 
 {
     name: string;
     property: string;

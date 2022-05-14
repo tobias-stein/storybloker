@@ -1,6 +1,6 @@
 import { StoryBlokComponent } from ".";
 
-export interface ProductAttributeComoponent extends StoryBlokComponent<""> {
+export interface ProductAttributeComoponent extends StoryBlokComponent<"product-attribute"> {
     max:       string;
     min:       string;
     name:      string;
@@ -8,7 +8,7 @@ export interface ProductAttributeComoponent extends StoryBlokComponent<""> {
     values:    ProductAttributeValueComponent[];
 }
 
-export interface ProductAttributeValueComponent extends StoryBlokComponent<""> {
+export interface ProductAttributeValueComponent extends StoryBlokComponent<"product-attribute-value"> {
     value:     string;
     value_max: string;
 }

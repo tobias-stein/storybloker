@@ -1,5 +1,5 @@
 import { StoryBlokComponent, ImageLink } from ".";
-export interface ProductSkuComponent extends StoryBlokComponent<""> {
+export interface ProductSkuComponent extends StoryBlokComponent<"product-sku"> {
 
     name:            string;
     item:            string;
@@ -15,7 +15,7 @@ export interface ProductSkuComponent extends StoryBlokComponent<""> {
     last_update:     string;
 }
 
-export interface ProductSkuPropertyComponent extends StoryBlokComponent<""> {
+export interface ProductSkuPropertyComponent extends StoryBlokComponent<"product-sku-property"> {
     name:            string;
     property:        string;
     value:           string;
