@@ -208,7 +208,8 @@ export class StoryBlokAPIClient extends APIClient
                                 name: PathElement, 
                                 slug: Slugify(PathElement), 
                                 parent_id: Parent ? Parent.id : null, 
-                                is_startpage: false 
+                                is_startpage: false,
+                                is_folder: true
                             } as Story); 
                 });
 
