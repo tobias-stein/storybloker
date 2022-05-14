@@ -1,6 +1,6 @@
 import { StoryBlokComponent, ImageLink } from ".";
 import { ProductSkuComponent } from "./ProductSkuComponent";
-export interface ProductComponent extends StoryBlokComponent {
+export interface ProductComponent extends StoryBlokComponent<"product"> {
     name:               string;
     image:              ImageLink;
     highlights:         string;

@@ -1,6 +1,6 @@
 import { StoryBlokComponent } from ".";
 
-export interface ProductSkuOptionComponent extends StoryBlokComponent {
+export interface ProductSkuOptionComponent extends StoryBlokComponent<""> {
     name:        string;
     attribute:   string;
 }

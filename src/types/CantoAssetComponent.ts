@@ -1,7 +1,7 @@
 import { MultiLink, StoryblokAsset } from ".";
 import { StoryBlokComponent } from "."
 
-export interface CantoAssetComponent extends StoryBlokComponent {
+export interface CantoAssetComponent extends StoryBlokComponent<""> {
   canto_id:                 string;
   storyblok_asset:          StoryblokAsset;
   type:                     string;
@@ -14,7 +14,7 @@ export interface CantoAssetComponent extends StoryBlokComponent {
   last_folder_hash:         string;
 }
 
-export interface CantoAssetPropertyComponent extends StoryBlokComponent {
+export interface CantoAssetPropertyComponent extends StoryBlokComponent<""> {
   name:                   string;
   value:                  string;
 }

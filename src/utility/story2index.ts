@@ -6,7 +6,7 @@ import { Story } from "../types/Story";
 import { RichtextToPlain } from "./richtext2plaintext";
 import { ContentToPlainText } from "./content2plaintext";
 
-export function StoryToIndex(Target: Story<any & StoryBlokComponent>, KnownComponents: Array<Component>, IncludeFields?: Array<string> | undefined) : Record<any, any>
+export function StoryToIndex(Target: Story, KnownComponents: Array<Component>, IncludeFields?: Array<string> | undefined) : Record<any, any>
 {
     let IndexDocument = { 
         objectID: Target.uuid,

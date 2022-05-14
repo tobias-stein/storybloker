@@ -1,6 +1,6 @@
 import { StoryBlokComponent } from ".";
 
-export interface CountryComponent extends StoryBlokComponent {
+export interface CountryComponent extends StoryBlokComponent<""> {
     name:         string;
     name_native:  string;
     iso_alpha2:   string;

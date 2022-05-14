@@ -4,7 +4,7 @@ import { StoryBlokComponent, Component } from "../types";
 // utility
 import { RichtextToPlain } from "./richtext2plaintext";
 
-function GetProcessableFields(Target: StoryBlokComponent, KnownComponents: Array<Component>): Map<string, string>
+function GetProcessableFields(Target: StoryBlokComponent<"">, KnownComponents: Array<Component>): Map<string, string>
 {
     const ProcessableFields = new Map<string, string>();
 
@@ -34,7 +34,7 @@ function GetProcessableFields(Target: StoryBlokComponent, KnownComponents: Array
 }
 
 
-export function ContentToPlainText(Target: Array<StoryBlokComponent>, KnownComponents: Array<Component>, MaxDepth: number = 2): string
+export function ContentToPlainText(Target: Array<StoryBlokComponent<"">>, KnownComponents: Array<Component>, MaxDepth: number = 2): string
 {
     let Output = "";
 

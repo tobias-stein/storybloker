@@ -1,6 +1,6 @@
 import { StoryBlokComponent, ImageLink } from ".";
 
-export interface ProductRangeComponent extends StoryBlokComponent {
+export interface ProductRangeComponent extends StoryBlokComponent<"product-range"> {
     name:               string;
     image:              ImageLink;
     tagline:            string;

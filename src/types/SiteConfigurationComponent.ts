@@ -1,6 +1,6 @@
 import { StoryBlokComponent } from ".";
 
-export interface SiteConfigurationComponent extends StoryBlokComponent 
+export interface SiteConfigurationComponent extends StoryBlokComponent<""> 
 {
     root:                            string;
     shop_import:                     boolean;

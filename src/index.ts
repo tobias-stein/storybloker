@@ -203,7 +203,13 @@ export class StoryBlokAPIClient extends APIClient
                         // return folder if it already exists
                         ? data.stories[0] 
                         // else create a new folder
-                        : this.CreateStory({ parent_id: Parent ? Parent.id : null, name: PathElement, slug: Slugify(PathElement), is_folder: true, is_startpage: false } as Story); 
+                        : this.CreateStory(
+                            { 
+                                name: PathElement, 
+                                slug: Slugify(PathElement), 
+                                parent_id: Parent ? Parent.id : null, 
+                                is_startpage: false 
+                            } as Story); 
                 });
 
             Parent = Folder;
