@@ -39,9 +39,11 @@ export class APIClient
 
     private async BeforeRequestSend(request: AxiosRequestConfig): Promise<AxiosRequestConfig> 
     {
-        // log the requests
-        console.log(`${request.method?.toUpperCase()} ${request.baseURL}${request.url} ${JSON.stringify({ data: { ...request.data }, params: new URLSearchParams(request.params).toString() })}`);
-
+        if((process.env.LOG_REQUESTS ?? false) as boolean)
+        {
+            // log the requests
+            console.log(`${request.method?.toUpperCase()} ${request.baseURL}${request.url} ${JSON.stringify({ data: { ...request.data }, params: new URLSearchParams(request.params).toString() })}`);
+        }
         // send of the request...
         return request;
     }
