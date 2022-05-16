@@ -12,6 +12,7 @@ export interface ProductCategoryComponent extends StoryBlokComponent<"product-ca
     content:        any;
     icon_url:       string;
     deleted:        boolean;
+    category:       string;
 }
 
 export interface ProductCategoryFilterComponent extends StoryBlokComponent<"product-category-filter"> 

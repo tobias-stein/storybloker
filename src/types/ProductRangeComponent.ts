@@ -19,6 +19,5 @@ export interface ProductRangeComponent extends StoryBlokComponent<"product-range
     importance:         number;
     last_update:        string;
     deleted:            boolean;
-
 }
 
