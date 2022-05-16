@@ -24,8 +24,16 @@ function StripRichtextFormat(rte: RichtextElement) : string
 
 export function RichtextToPlain(richtextJson: string | Object) : string
 {
-    if(!richtextJson) { return ""; }
-
-    const asJson = typeof richtextJson !== 'object' ? JSON.parse(richtextJson) : richtextJson;
-    return StripRichtextFormat(asJson as unknown as RichtextElement);
+    try 
+    {
+        if(!richtextJson) { return ""; }
+        
+        const asJson = typeof richtextJson !== 'object' ? JSON.parse(richtextJson) : richtextJson;
+        return StripRichtextFormat(asJson as unknown as RichtextElement);
+    }
+    catch(err)
+    {
+        console.error(err);
+        return typeof richtextJson === 'object' ? JSON.stringify(richtextJson) : richtextJson;
+    }
 }
