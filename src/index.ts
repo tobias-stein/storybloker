@@ -508,11 +508,13 @@ export class StoryBlokAPIClient extends APIClient
         AssetDimensions: string,
         AssetContentLength: string, 
         AssetContentType: string,
-        source?: string | undefined) : Promise<Asset>
+        source?: string | undefined,
+        AssetId?: number | undefined) : Promise<Asset>
     {
         // first request signed request to upload content
         return await this.POST("assets", 
-            { 
+            {
+                id: AssetId,  
                 filename: AssetName, 
                 title: BeautifyFilename(AssetCaption),
                 size: AssetDimensions,
@@ -548,7 +550,24 @@ export class StoryBlokAPIClient extends APIClient
                         { 
                             // 3. finalize the upload
                             await this.GET(`assets/${SingedRequest.id}/finish_upload`)
-                                .then(async () => { resolve(await this.GetAssetById(SingedRequest.id)); })
+                                .then(async () => 
+                                { 
+                                    let asset = await this.GetAssetById(SingedRequest.id);
+
+                                    // udpate
+                                    if(AssetId !== undefined)
+                                    {
+                                        asset.filename = AssetName;
+                                        asset.source = source || null;
+                                        asset.alt = AssetDescription;
+                                        asset.copyright = AssetCopyright;
+                                        asset.title = BeautifyFilename(AssetCaption);
+
+                                        await this.PUT(`assets/${AssetId}`, { asset: asset });
+                                    }
+
+                                    resolve(asset); 
+                                })
                                 .catch(error => { reject(error); });
                         } 
                     });

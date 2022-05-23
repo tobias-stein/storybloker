@@ -24,5 +24,6 @@ export interface SiteConfigurationComponent extends StoryBlokComponent<"">
     address_compact:                 string;
     brand:                           string;
     has_locales:                     boolean;
-    project_planner_enabled:         boolean
+    project_planner_enabled:         boolean;
+    force_import:                    boolean;
 }
