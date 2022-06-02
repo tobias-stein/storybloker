@@ -34,7 +34,7 @@ export class APIClient
         this.instance = RPS(axios.create(clientConfig), { maxRPS: maxRequestsPerSecond ? maxRequestsPerSecond : undefined });  
 
         // add request interceptor
-        this.instance.interceptors.request.use((request) => { return this.BeforeRequestSend(request); }, undefined);
+        //this.instance.interceptors.request.use((request) => { return this.BeforeRequestSend(request); }, undefined);
     }
 
     private async BeforeRequestSend(request: AxiosRequestConfig): Promise<AxiosRequestConfig> 
