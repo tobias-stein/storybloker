@@ -39,7 +39,7 @@ export class APIClient
 
     private async BeforeRequestSend(request: AxiosRequestConfig): Promise<AxiosRequestConfig> 
     {
-        if((process.env.LOG_REQUESTS ?? false) as boolean)
+        if((process.env.LOGGER_LOG_REQUESTS ?? false) as boolean)
         {
             // log the requests
             console.log(`${request.method?.toUpperCase()} ${request.baseURL}${request.url} ${JSON.stringify({ data: { ...request.data }, params: new URLSearchParams(request.params).toString() })}`);
@@ -86,8 +86,9 @@ export class APIClient
                 /** The request was made and the server responded with a status code that falls out of the range of 2xx */
                 if(error.response) 
                 { 
-                    console.error(`${error.response.status}: ${error.response.statusText}\nDetails: ${JSON.stringify(error.response.data)}\nRequest: ${JSON.stringify({ ...config })}`);
-
+                    //console.error(`${error.response.status}: ${error.response.statusText}\nDetails: ${JSON.stringify(error.response.data)}\nRequest: ${JSON.stringify({ ...config })}`);
+                    console.error(`'${error.config.baseURL}${error.config.url}' failed. ${error.response.statusText} [${error.response.status}]`);
+                       
                     const _retry = retry || 1;
                     if(error.response.status == 429 && (_retry < this.maxRetry)) 
                     {
