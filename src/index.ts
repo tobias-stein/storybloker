@@ -511,69 +511,37 @@ export class StoryBlokAPIClient extends APIClient
         source?: string | undefined,
         AssetId?: number | undefined) : Promise<Asset>
     {
-        // first request signed request to upload content
-        return await this.POST("assets", 
-            {
-                id: AssetId,  
-                filename: AssetName, 
-                title: BeautifyFilename(AssetCaption),
-                size: AssetDimensions,
-                name: AssetName,
-                copyright: AssetCopyright, 
-                alt: AssetDescription, 
-                asset_folder_id: AssetFolderId,
-                content_type: AssetContentType,
-                content_length: AssetContentLength,
-                source: source
-            })
-            // upload content
-            .then(SingedRequest =>
-            {
-                return new Promise<Asset>((resolve, reject) => 
-                {
-                    var UploadForm = new FormData();
+       
+        // 1. request signed request to upload content
+        const signedRequest = await this.POST("assets", {
+            id: AssetId,  
+            filename: AssetName, 
+            title: BeautifyFilename(AssetCaption),
+            size: AssetDimensions,
+            name: AssetName,
+            copyright: AssetCopyright, 
+            alt: AssetDescription, 
+            asset_folder_id: AssetFolderId,
+            content_type: AssetContentType,
+            content_length: AssetContentLength,
+            source: source
+        });
 
-                    // all fields from signed request must be present in upload request!
-                    for (const Key in SingedRequest.fields) { UploadForm.append(Key, SingedRequest.fields[Key]); }
-    
-                    // add upload content
-                    UploadForm.append('file', AssetContent);
+        // upload content
+        var uploadForm = new FormData();
+        // all fields from signed request must be present in upload request!
+        for (const key in signedRequest.fields) { uploadForm.append(key, signedRequest.fields[key]); }
+        // add image data 
+        uploadForm.append('file', AssetContent);
 
-                    // send upload request
-                    UploadForm.submit(SingedRequest.post_url, async (err, res) => 
-                    { 
-                        if(err) 
-                        { 
-                            reject(err); 
-                        } 
-                        else 
-                        { 
-                            // 3. finalize the upload
-                            await this.GET(`assets/${SingedRequest.id}/finish_upload`)
-                                .then(async () => 
-                                { 
-                                    let asset = await this.GetAssetById(SingedRequest.id);
+        // 2. submit data and await response
+        await new Promise((resolve, reject) => { uploadForm.submit(signedRequest.post_url, (err, res) => { err ? reject(err) : resolve(res); }); });
 
-                                    // udpate
-                                    if(AssetId !== undefined)
-                                    {
-                                        asset.filename = AssetName;
-                                        asset.source = source || null;
-                                        asset.alt = AssetDescription;
-                                        asset.copyright = AssetCopyright;
-                                        asset.title = BeautifyFilename(AssetCaption);
+        // 3. notify storyblok, that the asset content has been uploaded!
+        await this.GET(`assets/${signedRequest.id}/finish_upload`);
 
-                                        await this.PUT(`assets/${AssetId}`, { asset: asset });
-                                    }
-
-                                    resolve(asset); 
-                                })
-                                .catch(error => { reject(error); });
-                        } 
-                    });
-                });
-            })
-            .catch(error => { throw error; });
+        // finally retrieve the created/updated asset object
+        return this.GetAssetById(signedRequest.id);
     }
 
     /**
