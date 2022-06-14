@@ -27,7 +27,8 @@ export class APIClient
                     'Authorization': authToken,
                     "Content-Type": "application/json"
                 }
-            }
+            },
+            timeout: 60000 // timeout requests after 60 seconds
         };
         
         // create axios client instance
