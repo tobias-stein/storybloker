@@ -27,4 +27,5 @@ export interface ProductComponent extends StoryBlokComponent<"product"> {
     inserts:            any;
     sku_options:        any;
     deleted:            boolean;
+    element_ids:        string;
 }
