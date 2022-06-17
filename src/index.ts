@@ -540,8 +540,21 @@ export class StoryBlokAPIClient extends APIClient
         // 3. notify storyblok, that the asset content has been uploaded!
         await this.GET(`assets/${signedRequest.id}/finish_upload`);
 
+        // udpate asset meta data
+        const asset = await this.GetAssetById(signedRequest.id);
+        if(AssetId !== undefined)
+        {
+            asset.filename  = AssetName;
+            asset.source    = source || null;
+            asset.alt       = AssetDescription;
+            asset.copyright = AssetCopyright;
+            asset.title     = BeautifyFilename(AssetCaption);
+
+            await this.PUT(`assets/${AssetId}`, { asset: asset });
+        }
+
         // finally retrieve the created/updated asset object
-        return this.GetAssetById(signedRequest.id);
+        return asset;
     }
 
     /**
