@@ -544,11 +544,10 @@ export class StoryBlokAPIClient extends APIClient
         const asset = await this.GetAssetById(signedRequest.id);
         if(AssetId !== undefined)
         {
-            asset.filename  = AssetName;
-            asset.source    = source || null;
+            asset.title     = BeautifyFilename(AssetCaption);
             asset.alt       = AssetDescription;
             asset.copyright = AssetCopyright;
-            asset.title     = BeautifyFilename(AssetCaption);
+            asset.source    = source || null;
 
             await this.PUT(`assets/${AssetId}`, { asset: asset });
         }
